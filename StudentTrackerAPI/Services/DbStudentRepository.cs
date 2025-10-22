@@ -36,6 +36,8 @@ public class DbStudentRepository : IStudentRepository
         if (studentToUpdate != null)
         {
             studentToUpdate.name = updatedStudent.name;
+            studentToUpdate.latitude = updatedStudent.latitude;
+            studentToUpdate.longitude = updatedStudent.longitude;
             await _db.SaveChangesAsync();
         }
 
