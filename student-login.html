@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+    Author: Matthew Williams
+    Date: 10/22/2025
+    Last Revised: 10/22/2025
+    Title: Student Login Page
+    Purpose: Provide a stylized and easy to understand login page for students.
+    Class: CSCI 4250-002 Software Engineering I
+    -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Tracker | Student Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-student">
+  <main class="page-center">
+    <div class="card" role="region" aria-labelledby="studentLoginHeading">
+      <h2 id="studentLoginHeading" class="heading-card">Student Login</h2>
+      <form class="form" aria-describedby="studentLoginHelp" novalidate>
+        <div>
+          <label class="label" for="s-username">Username</label>
+          <input class="input" type="text" id="s-username" name="username" placeholder="Enter your student ID" required>
+        </div>
+        <div>
+          <label class="label" for="s-password">Password</label>
+          <input class="input" type="password" id="s-password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn">Login</button>
+      </form>
+      <a href="homepage.html" class="link">← Back to Home</a>
+    </div>
+  </main>
+</body>
+</html>
