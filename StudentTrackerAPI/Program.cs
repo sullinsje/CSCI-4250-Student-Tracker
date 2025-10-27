@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentTrackerAPI.Services;
+using Microsoft.AspNetCore.Identity;
 using StudentTrackerAPI.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddOpenApiDocument();
 builder.Services.AddScoped<IStudentRepository, DbStudentRepository>();
+builder.Services.AddAuthorization();
 
 // DbContext Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -15,7 +17,25 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+// Identity DbContext Configuration
+builder.Services.AddDbContext<ApplicationIdentityDbContext>(options =>
+        options.UseSqlite(
+            builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+
+// Add Identity services
+builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        // Configure other options as needed
+    })
+    .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
+
+
 var app = builder.Build();
+
+app.MapIdentityApi<IdentityUser>();
 
 if (app.Environment.IsDevelopment())
 {
