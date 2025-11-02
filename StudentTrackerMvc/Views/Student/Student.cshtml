@@ -4,6 +4,16 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        // Display the user's logged-in name (typically the Email address from MapIdentityApi)
+        <p>You are currently logged in as: <strong>@User.Identity.Name</strong></p>
+    }
+    else
+    {
+        // Fallback for cases where the user somehow lands here without being authenticated
+        <p>Please <a href="/login">log in</a> to use the attendance system.</p>
+    }
     <p> Clock in your attendance</a>.</p>
     <!-- button click to clock in attendance -->
     <button onclick="alert('Attendance Clocked In!')">Clock In</button>
@@ -12,3 +22,7 @@
     <!-- director button to students clock history -->
     <button onclick="window.location.href='/Student/AttendanceHistory'">View Attendance History</button>
 </div>
+
+@section Scripts {
+    <script src="~/js/cookie-test.js" asp-append-version="true"></script>
+}

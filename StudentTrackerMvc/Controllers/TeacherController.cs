@@ -8,7 +8,7 @@ public class TeacherController : Controller
 {
     private readonly ILogger<TeacherController> _logger;
 
-    public StudentController(ILogger<TeacherController> logger)
+    public TeacherController(ILogger<TeacherController> logger)
     {
         _logger = logger;
     }
