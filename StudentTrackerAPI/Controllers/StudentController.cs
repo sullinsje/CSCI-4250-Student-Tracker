@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using StudentTrackerAPI.Services;
 using StudentTrackerAPI.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 namespace StudentTrackerAPI.Controllers;
 
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class StudentController : ControllerBase
 {
     private readonly IStudentRepository _studentRepo;
