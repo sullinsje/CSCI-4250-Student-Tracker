@@ -29,6 +29,32 @@ public class StudentController : Controller
         return View();
     }
 
+    public IActionResult Dashboard()
+    {
+        return View();
+    }
+    // Temporary authentication: User:12345 Pass: password
+    [HttpPost]
+        public IActionResult Login(string studentId, string password, bool remember)
+        {
+            
+            if (string.IsNullOrEmpty(studentId) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.Error = "Please enter both Student ID and password.";
+                return View();
+            }
+
+            if (studentId == "12345" && password == "password")
+            {
+                return RedirectToAction("Dashboard", "Student");
+            }
+            else
+            {
+                ViewBag.Error = "Invalid Student ID or password.";
+                return View();
+            }
+        }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
