@@ -1,23 +1,120 @@
-<div class="card" role="region" aria-labelledby="studentLoginHeading">
-      <h2 id="studentLoginHeading" class="heading-card">Student Login</h2>
-      <form class="form" aria-describedby="studentLoginHelp" novalidate id="login-form">
-        <div>
-          <label class="label" for="s-username">Username</label>
-          <input class="input" type="text" id="s-username" name="username" placeholder="Enter your student ID" required>
-        </div>
-        <div>
-          <label class="label" for="s-password">Password</label>
-          <input class="input" type="password" id="s-password" name="password" placeholder="Enter your password" required>
-        </div>
-        <div>
-          <input type="checkbox" id="s-rememberMe" aria-describedby="remeberMeHelp">
-          <label for="s-rememberMe">Remember Me</label>
-        </div>
-        <button type="submit" class="btn" id="submitBtn">Login</button>
-      </form>
-      <a href="homepage.html" class="link">← Back to Home</a>
-    </div>
+@{
+    ViewData["Title"] = "Student Login";
+}
 
-    @section Scripts {
-        <script src="~/js/student-login.js" asp-append-version="true"></script>
-    }
+<div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-5 col-lg-4">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <div class="login-icon student-icon">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <h2 class="fw-bold">Student Login</h2>
+                <p class="text-muted">Access your student portal</p>
+            </div>
+
+            <form method="post" asp-action="Login" asp-controller="Student">
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>@ViewBag.Error
+                    </div>
+                }
+
+                <div class="mb-3">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-vcard"></i>
+                        </span>
+                        <input type="text" class="form-control" id="studentId" name="studentId" placeholder="Enter your Student ID" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-lock"></i>
+                        </span>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                    <label class="form-check-label" for="remember">
+                        Remember me
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 login-btn mb-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                </button>
+
+                <div class="text-center mt-3">
+                    <a href="/" class="text-muted text-decoration-none">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Home
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        body {
+            background: linear-gradient(135deg, #4a90e2 0%, #2c5aa0 100%);
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .login-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .student-icon {
+            color: #4a90e2;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+        }
+
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+
+        .login-btn {
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            background-color: #4a90e2;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        a {
+            color: #4a90e2;
+        }
+
+        a:hover {
+            color: #357abd;
+        }
+    </style>
+}
