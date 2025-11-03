@@ -3,7 +3,7 @@
 const loginForm = document.getElementById('login-form');
 
 loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     processFormData();
 });
 
@@ -12,18 +12,15 @@ async function processFormData() {
     const form = document.getElementById('login-form');
     const formData = new FormData(form);
 
-    const usernameValue = formData.get('username'); 
-    const passwordValue = formData.get('password'); 
-    const rememberMeValue = formData.get('rememberMe');
+    const usernameValue = formData.get('username');
+    const passwordValue = formData.get('password');
 
     const user = {
-        email: usernameValue, 
-        password: passwordValue,
-        useCookies: true,
-        persistCookies: rememberMeValue ? true : false
+        email: usernameValue,
+        password: passwordValue
     }
 
-    const fetchUrl = 'http://localhost:5050/login?useCookies=true'; 
+    const fetchUrl = 'http://localhost:5050/login';
 
     const response = await fetch(fetchUrl, {
         method: 'POST',
@@ -31,12 +28,14 @@ async function processFormData() {
             'Content-Type': 'application/json' // Tell the server to expect JSON
         },
         body: JSON.stringify(user), // Convert object to JSON string
-        credentials: 'include' 
     });
 
     if (response.ok) {
-        window.location.href = '/student/student'; 
-        // console.log('Login successful');
+        const tokenData = await response.json();
+        const accessToken = tokenData.accessToken;
+        localStorage.setItem('authToken', accessToken); // Store the token
+        window.location.href = '/student/student';     // Redirect
+
     } else {
         const errorData = await response.json();
         console.error('Login failed:', errorData);
